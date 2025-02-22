@@ -1,0 +1,79 @@
+@font-face {
+    font-family: 'MyFont';
+    src: url('./myfont.ttf') format('truetype');
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-color: #eef4fe;
+    font-family: 'MyFont', sans-serif;
+}
+
+.wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#showImage,
+.yes-image {
+    width: 480px;
+    transition: all 0.3s ease;
+}
+
+.text,
+.yes-text {
+    font-size: 28px;
+    font-weight: bold;
+    color: #454545;
+}
+
+button {
+    margin: 10px;
+    font-size: 18px;
+    font-family: 'MyFont', sans-serif;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    color: white;
+}
+
+#yes {
+    background-color: #f7b1ae;
+}
+
+#no {
+    background-color: #b3c9f1;
+}
+
+/* 修正和好畫面 */
+.yes-wrapper {
+    position: fixed; /* 確保全螢幕 */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #eef4fe;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.yes-text {
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.yes-image {
+    width: 480px;
+    height: auto;
+}
