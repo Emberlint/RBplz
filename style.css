@@ -12,16 +12,15 @@ body {
 }
 
 .wrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: min(480px, calc(100% - 32px));
+    margin: 0 auto;
+    padding-top: max(16px, calc((100svh - 620px) / 2));
 }
 
 #showImage,
 .yes-image {
     width: 480px;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .text,
@@ -38,7 +37,7 @@ button {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease;
     cursor: pointer;
     color: white;
 }
@@ -76,4 +75,59 @@ button {
 .yes-image {
     width: 480px;
     height: auto;
+}
+
+/* 固定圖片區高度：換圖時不受圖片原始比例影響。 */
+.image-frame {
+    width: 100%;
+    height: min(480px, 52svh);
+}
+
+#showImage {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#question {
+    margin: 20px 0;
+}
+
+/* 按鈕獨立定位，文字寬度與變形不改變上方版面。 */
+.buttons {
+    position: relative;
+    height: 64px;
+}
+
+.buttons button {
+    position: absolute;
+    top: 0;
+    margin: 0;
+    white-space: nowrap;
+}
+
+#yes {
+    right: calc(50% + 10px);
+    transform-origin: center center;
+}
+
+#no {
+    left: calc(50% + 10px);
+    z-index: 1;
+}
+
+/* 防止變大的按鈕產生捲軸、使整體置中位置改變。 */
+html, body {
+    overflow: hidden;
+}
+
+.buttons {
+    contain: size layout;
+}
+
+.yes-image {
+    max-width: calc(100vw - 32px);
+    max-height: 65svh;
+    object-fit: contain;
 }

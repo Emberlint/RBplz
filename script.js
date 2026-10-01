@@ -19,27 +19,42 @@ const noTexts = [
     "再給小兔一次機會好不好？"
 ];
 
-let name = '';
 const url = new URL(window.location.href);
-const params = new URLSearchParams(url.search);
-name = params.get('name') ? params.get('name') : '';
+const name = url.searchParams.get('name') || '';
 questionText.textContent += ` ${name}`;
 
 let clickCount = 0;
 
+function updateButtons() {
+    if (clickCount === 0) return;
+
+    // 每按一次「不要」，和好就越來越大
+    const scales = [1, 2, 4, 8, 16, 35];
+    const yesSize = scales[Math.min(clickCount, scales.length - 1)];
+
+    yesButton.style.transform = `scale(${yesSize})`;
+
+    // 放大後讓「和好」蓋在所有東西上面
+    yesButton.style.zIndex = clickCount >= 4 ? '100' : '2';
+
+    // 「不要」逐漸往右跑
+    noButton.style.transform = `translateX(${clickCount * 50}px)`;
+}
+
+window.addEventListener('resize', function () {
+    if (yesButton.isConnected) updateButtons();
+});
+
 noButton.addEventListener("click", function () {
-    clickCount += 1;
+    // 先使用目前索引，確保第一次點擊從 images/2.png 開始。
     if (clickCount < noImages.length) {
         showImage.src = noImages[clickCount];
         noButton.innerText = noTexts[clickCount];
     }
-    let yesSize = 1 + (clickCount * 1.2);
-    yesButton.style.transform = `scale(${yesSize})`;
-    let noOffset = clickCount * 50;
-    noButton.style.transform = `translateX(${noOffset}px)`;
-    let moveUp = clickCount * 25;
-    showImage.style.transform = `translateY(-${moveUp}px)`;
-    questionText.style.transform = `translateY(-${moveUp}px)`;
+    clickCount += 1;
+
+    updateButtons();
+    // 圖片與問題文字保持原位，只變更按鈕的 transform。
 });
 
 yesButton.addEventListener("click", function () {
